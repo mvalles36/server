@@ -38,7 +38,7 @@ RUN ./task/build-docker.sh
 ##
 
 # Thin deploy image.
-FROM scratch
+FROM debian:bullseye-slim
 
 # Copy compiled executable and configuration files to new image destination.
 COPY --from=build /go/bin /go/bin
