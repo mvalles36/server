@@ -1,23 +1,23 @@
-#!/bin/bash -u
-# This script compiles project for Linux amd64 inside of docker.
-# It produces static C-libraries linkage.
+#!/bin/bash -eu
+# This script compiles project for Linux amd64 (Render-safe, dynamic linking)
 
 wd=$(realpath -s "$(dirname "$0")/..")
 mkdir -p "$GOPATH/bin/config" "$GOPATH/bin/sqlite"
 cp -ruv "$wd/appdata/"* "$GOPATH/bin/config"
 
-# dockerfile has no access to git repository,
-# so update content of this variable by
-#   echo $(git describe --tags)
+# If running inside Docker with no git access, set version manually
 buildvers="v0.10.0"
-# See https://tc39.es/ecma262/#sec-date-time-string-format
-# time format acceptable for Date constructors.
-buildtime=$(date +'%FT%T.%3NZ')
+buildtime=$(date +'%FT%T.%3NZ')  # ISO-8601 format
 
-go env -w GOOS=linux GOARCH=amd64 CGO_ENABLED=1
-go build -o /go/bin/app -v\
- -tags="jsoniter prod full"\
- -ldflags="-linkmode external -extldflags -static\
- -X 'github.com/slotopol/server/config.BuildVers=$buildvers'\
- -X 'github.com/slotopol/server/config.BuildTime=$buildtime'"\
- ./
+# Enable cgo (required for go-sqlite3), and set target
+export GOOS=linux
+export GOARCH=amd64
+export CGO_ENABLED=1
+
+# Build app dynamically (NO STATIC LINKING)
+go build -o /go/bin/app -v \
+  -tags="jsoniter prod full" \
+  -ldflags="-s -w \
+    -X 'github.com/slotopol/server/config.BuildVers=$buildvers' \
+    -X 'github.com/slotopol/server/config.BuildTime=$buildtime'" \
+  ./
