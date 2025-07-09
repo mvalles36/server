@@ -3,12 +3,13 @@
 # =========================
 FROM golang:1.24-bookworm AS build
 
-# Install build dependencies
+# Install build dependencies and missing Perl module for debconf
 RUN apt-get update && apt-get install -y \
   ca-certificates \
   openssl \
   build-essential \
   libsqlite3-dev \
+  libterm-readline-gnu-perl \
   && rm -rf /var/lib/apt/lists/*
 
 # Fix TLS cert issues in CI/build environments
@@ -27,7 +28,7 @@ RUN go mod download
 # Copy source files
 COPY . .
 
-# Make your build script executable (add this line)
+# Make your build script executable
 RUN chmod +x ./task/*.sh
 
 # Run the build script
@@ -44,6 +45,7 @@ RUN apt-get update && apt-get install -y \
   libnss3 \
   libssl3 \
   ca-certificates \
+  libterm-readline-gnu-perl \
   && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
