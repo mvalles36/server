@@ -24,20 +24,20 @@ activation: # User account activation and verification
   # see https://developers.brevo.com/docs/send-a-transactional-email.
   brevo-email-endpoint: https://api.brevo.com/v3/smtp/email
   # Name of sender at email.
-  sender-name: Slotopol server
+  sender-name: Slott Rush
   # Email address of sender.
-  sender-email: slotopol.dev@gmail.com
+  sender-email: mvalles36@gmail.com
   # Email address of reply to, 'noreply' email prevent responses from users.
   replyto-email: noreply@gmail.com
   # Email subject.
-  email-subject: Slotopol verification code
+  email-subject: Slott Rush verification code
   # HTML-formatted template for email.
   # It should be with '%06d' to show verification code.
   email-html-content: |
     <html>
       <head></head>
       <body>
-        <p>Your Slotopol verification code is: <b>%06d</b></p>
+        <p>Your Slott Rush verification code is: <b>%06d</b></p>
       </body>
     </html>
   # Verification code timeout for sign-up or sign-in.
