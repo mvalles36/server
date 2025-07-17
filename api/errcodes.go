@@ -3,8 +3,8 @@ package api
 import "errors"
 
 // API error codes.
-// Each error code have unique source code point,
-// so this error code at service reply exactly points to error place.
+// Each error code has a unique source code point,
+// so this error code in the service reply exactly points to the error place.
 const (
 	AECnull = iota
 
@@ -364,6 +364,12 @@ const (
 	AEC_club_cashin_lockout
 	AEC_club_cashin_sqlbank
 	AEC_club_cashin_sqllog
+
+	// POST /club/new (New error codes for club creation)
+
+	AEC_club_new_nobind
+	AEC_club_new_noaccess
+	AEC_club_new_insert
 )
 
 var (
