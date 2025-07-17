@@ -35,24 +35,42 @@ const (
 )
 
 const (
+	// "iss" field for this tokens.
+	jwtIssuer = "slotopol"
+
+	// Pointer to User object stored at gin context
+	// after successful authorization.
+	userKey = "user"
+
+	realmBasic  = `Basic realm="slotopol", charset="UTF-8"`
+	realmBearer = `JWT realm="slotopol", charset="UTF-8"`
+)
+
+const (
 	sqlnewprops = `INSERT INTO props (cid,uid) SELECT cid,? FROM club`
 )
 
 var (
-	ErrNoJwtID  = errors.New("jwt-token does not have user id")
-	ErrBadJwtID = errors.New("jwt-token id does not refer to registered user")
-	ErrNoAuth   = errors.New("authorization is required")
-	ErrNoScheme = errors.New("authorization does not have expected scheme")
-	ErrNoSecret = errors.New("expected password or SHA256 hash on it and current time as a nonce")
-	ErrSmallKey = errors.New("password too small")
-	ErrNoCred   = errors.New("user with given credentials does not registered")
-	ErrActivate = errors.New("activation required for this account")
-	ErrOldCode  = errors.New("verification code expired")
-	ErrBadCode  = errors.New("verification code does not pass")
-	ErrNotPass  = errors.New("password is incorrect")
-	ErrSigTime  = errors.New("signing time can not been recognized (time in RFC3339 expected)")
-	ErrSigOut   = errors.New("nonce is expired")
-	ErrBadHash  = errors.New("hash cannot be decoded in hexadecimal")
+	ErrNoJwtID       = errors.New("jwt-token does not have user id")
+	ErrBadJwtID      = errors.New("jwt-token id does not refer to registered user")
+	ErrNoAuth        = errors.New("authorization is required")
+	ErrNoScheme      = errors.New("authorization does not have expected scheme")
+	ErrNoSecret      = errors.New("expected password or SHA256 hash on it and current time as a nonce")
+	ErrSmallKey      = errors.New("password too small")
+	ErrNoCred        = errors.New("user with given credentials does not registered")
+	ErrActivate      = errors.New("activation required for this account")
+	ErrOldCode       = errors.New("verification code expired")
+	ErrBadCode       = errors.New("verification code does not pass")
+	ErrNotPass       = errors.New("password is incorrect")
+	ErrSigTime       = errors.New("signing time can not been recognized (time in RFC3339 expected)")
+	ErrSigOut        = errors.New("nonce is expired")
+	ErrBadHash       = errors.New("hash cannot be decoded in hexadecimal")
+
+	// New error codes for club creation
+	ErrClubCreateNoBind    = errors.New("club creation request failed to bind data")
+	ErrClubCreateNoAccess  = errors.New("user does not have access to create a club")
+	ErrClubCreateNameTaken = errors.New("club name is already in use")
+	ErrClubCreateDBInsert  = errors.New("failed to insert new club into database")
 )
 
 var (
