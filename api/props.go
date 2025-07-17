@@ -33,7 +33,6 @@ func ApiPropsGet(c *gin.Context) {
 		Ret404(c, AEC_prop_get_noclub, ErrNoClub)
 		return
 	}
-	_ = club
 
 	var user *User
 	if user, ok = Users.Get(arg.UID); !ok {
@@ -80,7 +79,6 @@ func ApiPropsWalletGet(c *gin.Context) {
 		Ret404(c, AEC_prop_walletget_noclub, ErrNoClub)
 		return
 	}
-	_ = club
 
 	var user *User
 	if user, ok = Users.Get(arg.UID); !ok {
@@ -128,7 +126,6 @@ func ApiPropsWalletAdd(c *gin.Context) {
 		Ret404(c, AEC_prop_walletadd_noclub, ErrNoClub)
 		return
 	}
-	_ = club
 
 	var user *User
 	if user, ok = Users.Get(arg.UID); !ok {
@@ -193,7 +190,6 @@ func ApiPropsAlGet(c *gin.Context) {
 		Ret404(c, AEC_prop_alget_noclub, ErrNoClub)
 		return
 	}
-	_ = club
 
 	var user *User
 	if user, ok = Users.Get(arg.UID); !ok {
@@ -236,7 +232,6 @@ func ApiPropsAlSet(c *gin.Context) {
 		Ret404(c, AEC_prop_alset_noclub, ErrNoClub)
 		return
 	}
-	_ = club
 
 	var user *User
 	if user, ok = Users.Get(arg.UID); !ok {
@@ -249,7 +244,6 @@ func ApiPropsAlSet(c *gin.Context) {
 		Ret403(c, AEC_prop_alset_noaccess, ErrNoAccess)
 		return
 	}
-	_ = admin
 
 	var props *Props
 	if props, ok = user.props.Get(arg.CID); !ok {
@@ -301,7 +295,6 @@ func ApiPropsRtpGet(c *gin.Context) {
 		Ret404(c, AEC_prop_rtpget_noclub, ErrNoClub)
 		return
 	}
-	_ = club
 
 	var user *User
 	if user, ok = Users.Get(arg.UID); !ok && !arg.All {
@@ -345,7 +338,6 @@ func ApiPropsRtpSet(c *gin.Context) {
 		Ret404(c, AEC_prop_rtpset_noclub, ErrNoClub)
 		return
 	}
-	_ = club
 
 	var user *User
 	if user, ok = Users.Get(arg.UID); !ok {
@@ -358,7 +350,6 @@ func ApiPropsRtpSet(c *gin.Context) {
 		Ret403(c, AEC_prop_rtpset_noaccess, ErrNoAccess)
 		return
 	}
-	_ = admin
 
 	var props *Props
 	if props, ok = user.props.Get(arg.CID); !ok {
