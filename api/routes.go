@@ -16,7 +16,6 @@ import (
 
 type Session = xorm.Session
 
-// "Server" field for HTTP headers.
 var serverhdr = fmt.Sprintf("slotopol/%s (%s; %s)", cfg.BuildVers, runtime.GOOS, runtime.GOARCH)
 
 var Offered = []string{
@@ -56,22 +55,18 @@ type jerr struct {
 	error
 }
 
-// Unwrap returns inherited error object.
 func (err jerr) Unwrap() error {
 	return err.error
 }
 
-// MarshalJSON is standard JSON interface implementation to stream errors on Ajax.
 func (err jerr) MarshalJSON() ([]byte, error) {
 	return json.Marshal(err.Error())
 }
 
-// MarshalYAML is YAML marshaler interface implementation to stream errors on Ajax.
 func (err jerr) MarshalYAML() (any, error) {
 	return err.Error(), nil
 }
 
-// MarshalXML is XML marshaler interface implementation to stream errors on Ajax.
 func (err jerr) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	return e.EncodeElement(err.Error(), start)
 }
@@ -128,7 +123,6 @@ func Ret500(c *gin.Context, code int, err error) {
 func SetupRouter(r *gin.Engine) {
 	r.NoRoute(Handle404)
 	r.NoMethod(Handle405)
-	//r.Use(gzip.Gzip(gzip.DefaultCompression))
 
 	r.Any("/ping", ApiPing)
 	r.GET("/servinfo", ApiServInfo)
@@ -198,4 +192,5 @@ func SetupRouter(r *gin.Engine) {
 	rc.POST("/info", ApiClubInfo)
 	rc.POST("/rename", ApiClubRename)
 	rc.POST("/cashin", ApiClubCashin)
+	rc.POST("/create", ApiClubCreate)  // New endpoint for creating a club
 }
