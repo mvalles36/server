@@ -31,8 +31,8 @@ COPY . .
 # Make your build script executable
 RUN chmod +x ./task/*.sh
 
-# Run the build script
-RUN ./task/build-docker.sh
+# Run the build script with build tags for all games (full + specific vendors)
+RUN go build -tags "full agt aristocrat betsoft ct igt megajack netent novomatic playngo playtech" -o /go/bin/app .
 
 # =========================
 # ✅ Deploy stage (glibc 2.36+)
