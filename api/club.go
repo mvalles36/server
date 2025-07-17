@@ -11,9 +11,16 @@ import (
 )
 
 const (
+	// Existing codes
 	AEC_club_new_nobind   = 7001
 	AEC_club_new_noaccess = 7002
 	AEC_club_new_insert   = 7003
+
+	// New codes for creating a club
+	AEC_club_create_nobind   = 7101  // create: could not bind request payload
+	AEC_club_create_noaccess = 7102  // create: user not authorized to create club
+	AEC_club_create_nameused = 7103  // create: club name already taken
+	AEC_club_create_dberr    = 7104  // create: failed to insert club into DB
 )
 
 // Check if the user is in a club.
